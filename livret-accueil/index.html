@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Livret d'accueil</title>
+<meta name="description" content="Livret d'accueil de la maison de Laure et Julien">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f3ee;
+    --surface:#ffffff;
+    --ink:#2b2a28;
+    --muted:#77716a;
+    --line:#e8e1d8;
+    --accent:#b5835a;
+    --accent-soft:#f1e6da;
+    --sage:#7d8f7a;
+    --danger:#c0392b;
+    --danger-soft:#fbeae8;
+    --shadow:0 6px 24px rgba(60,45,30,.08);
+    --radius:18px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1c1a18; --surface:#262320; --ink:#f2ede6; --muted:#a8a097;
+      --line:#3a3530; --accent:#d4a378; --accent-soft:#3a2f25;
+      --sage:#9fb29b; --danger:#ef7a6d; --danger-soft:#3b2421;
+      --shadow:0 6px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1c1a18; --surface:#262320; --ink:#f2ede6; --muted:#a8a097;
+    --line:#3a3530; --accent:#d4a378; --accent-soft:#3a2f25;
+    --sage:#9fb29b; --danger:#ef7a6d; --danger-soft:#3b2421;
+    --shadow:0 6px 24px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Poppins',system-ui,sans-serif;
+    background:var(--bg); color:var(--ink);
+    line-height:1.6; font-size:15px; font-weight:300;
+    min-height:100vh;
+  }
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:600;line-height:1.2}
+  strong{font-weight:600}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+  /* Langues */
+  body.en [data-fr], body:not(.en) [data-en]{display:none !important}
+
+  .wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+  /* ---------- Couverture ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    min-height:62vh; display:flex; align-items:flex-end;
+    background:
+      radial-gradient(120% 80% at 80% 0%, rgba(255,255,255,.18), transparent 60%),
+      linear-gradient(160deg,#c89b72 0%,#9c6b46 55%,#6f4a32 100%);
+    color:#fff; border-radius:0 0 32px 32px;
+  }
+  .hero svg.scene{position:absolute;inset:auto 0 0 0;width:100%;height:auto;opacity:.9}
+  .hero .wrap{position:relative;width:100%;padding-top:80px;padding-bottom:40px}
+  .hero .kicker{
+    display:inline-block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    background:rgba(255,255,255,.18);backdrop-filter:blur(6px);
+    padding:6px 14px;border-radius:999px;margin-bottom:16px;font-weight:500
+  }
+  .hero h1{font-size:clamp(34px,8vw,54px);margin-bottom:10px;text-shadow:0 2px 18px rgba(0,0,0,.2)}
+  .hero p{font-size:16px;opacity:.95;max-width:480px}
+  .hero .hosts{margin-top:18px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:400}
+  .hero .avatar{
+    width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.25);
+    display:grid;place-items:center;font-family:'Playfair Display',serif;font-weight:700
+  }
+
+  .topbar{
+    position:absolute;top:0;left:0;right:0;z-index:5;
+    display:flex;justify-content:flex-end;padding:16px;
+  }
+  .lang{
+    display:flex;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);
+    border-radius:999px;padding:4px
+  }
+  .lang button{
+    color:#fff;font-size:13px;font-weight:500;padding:6px 14px;border-radius:999px;transition:.2s
+  }
+  .lang button.on{background:#fff;color:#6f4a32}
+
+  /* ---------- Grille de tuiles ---------- */
+  main{padding:28px 0 40px}
+  .section-label{
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+    font-weight:500;margin:6px 4px 14px
+  }
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media (min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}}
+  .tile{
+    background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:20px 14px 18px;display:flex;flex-direction:column;align-items:center;gap:12px;
+    text-align:center;border:1px solid var(--line);transition:transform .2s, box-shadow .2s;
+    min-height:132px;justify-content:center
+  }
+  .tile:hover{transform:translateY(-3px)}
+  .tile:active{transform:scale(.97)}
+  .tile .ic{
+    width:54px;height:54px;border-radius:16px;display:grid;place-items:center;
+    background:var(--accent-soft);color:var(--accent)
+  }
+  .tile .ic svg{width:26px;height:26px}
+  .tile span.t{font-weight:500;font-size:14px;line-height:1.3}
+  .tile.alert .ic{background:var(--danger-soft);color:var(--danger)}
+
+  .welcome-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:22px;margin-bottom:28px;
+    display:flex;gap:16px;align-items:flex-start
+  }
+  .welcome-card .ic{flex:none;width:44px;height:44px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+  .welcome-card h2{font-size:20px;margin-bottom:4px}
+  .welcome-card p{color:var(--muted);font-size:14px}
+
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 16px 40px}
+  footer .sig{font-family:'Playfair Display',serif;font-size:18px;color:var(--ink);font-style:italic;margin-top:4px}
+
+  /* ---------- Panneaux ---------- */
+  .sheet{
+    position:fixed;inset:0;z-index:50;background:var(--bg);
+    transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+    overflow-y:auto;-webkit-overflow-scrolling:touch;visibility:hidden
+  }
+  .sheet.open{transform:none;visibility:visible}
+  .sheet-head{
+    position:sticky;top:0;z-index:2;background:var(--bg);
+    display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)
+  }
+  .back{
+    width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--line);
+    display:grid;place-items:center;flex:none
+  }
+  .back svg{width:20px;height:20px}
+  .sheet-head h2{font-size:20px}
+  .sheet-body{max-width:760px;margin:0 auto;padding:22px 16px 60px}
+  .sheet-hero{
+    display:flex;align-items:center;gap:14px;margin-bottom:20px
+  }
+  .sheet-hero .ic{width:60px;height:60px;border-radius:18px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+  .sheet-hero .ic svg{width:30px;height:30px}
+  .sheet-hero h3{font-size:24px}
+
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 18px;margin-bottom:14px;box-shadow:var(--shadow)
+  }
+  .card h4{font-weight:600;font-size:15px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .card h4 svg{width:18px;height:18px;color:var(--accent);flex:none}
+  .card p + p{margin-top:10px}
+  .card .muted{color:var(--muted);font-size:14px}
+
+  .alert-box{
+    background:var(--danger-soft);border:1px solid color-mix(in srgb,var(--danger) 30%,transparent);
+    color:var(--danger);border-radius:var(--radius);padding:16px 18px;margin:18px 0;
+    font-weight:500;display:flex;gap:12px;align-items:flex-start
+  }
+  .alert-box svg{width:22px;height:22px;flex:none;margin-top:1px}
+
+  .todo{margin:0;list-style:none}
+  .todo li{
+    display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer
+  }
+  .todo li:last-child{border-bottom:0}
+  .todo .box{
+    flex:none;width:24px;height:24px;border-radius:8px;border:2px solid var(--line);
+    display:grid;place-items:center;margin-top:1px;transition:.2s
+  }
+  .todo .box svg{width:14px;height:14px;color:#fff;opacity:0;transition:.2s}
+  .todo li.done .box{background:var(--sage);border-color:var(--sage)}
+  .todo li.done .box svg{opacity:1}
+  .todo li.done .txt{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+  .progress{
+    height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin:4px 0 6px
+  }
+  .progress i{display:block;height:100%;width:0;background:var(--sage);transition:width .3s}
+  .progress-label{font-size:13px;color:var(--muted)}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--accent);color:#fff;font-weight:500;padding:12px 20px;border-radius:999px;
+    text-decoration:none;font-size:14px;margin-top:12px
+  }
+  .btn svg{width:18px;height:18px}
+  .btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+  .btn-row{display:flex;flex-wrap:wrap;gap:10px}
+
+  .kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .kv:last-child{border-bottom:0}
+  .kv b{font-weight:500}
+  .kv code{font-family:ui-monospace,Menlo,monospace;font-size:14px;background:var(--accent-soft);padding:2px 8px;border-radius:6px;word-break:break-all}
+  .todo-fill{color:var(--muted);font-style:italic}
+
+  .signature{text-align:right;margin-top:18px;font-family:'Playfair Display',serif;font-style:italic;font-size:18px}
+  body.lock{overflow:hidden}
+</style>
+</head>
+<body>
+
+<!-- ================= COUVERTURE ================= -->
+<header class="hero">
+  <div class="topbar">
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button type="button" data-set-lang="fr" class="on">FR</button>
+      <button type="button" data-set-lang="en">EN</button>
+    </div>
+  </div>
+
+  <svg class="scene" viewBox="0 0 800 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <path d="M0 200 L140 90 L230 160 L360 40 L500 170 L600 100 L800 210 L800 260 L0 260Z" fill="rgba(255,255,255,.10)"/>
+    <path d="M0 230 L120 160 L260 220 L420 130 L560 210 L700 160 L800 220 L800 260 L0 260Z" fill="rgba(255,255,255,.14)"/>
+    <g transform="translate(560 150)" fill="rgba(255,255,255,.85)">
+      <path d="M0 50 L60 0 L120 50 L120 110 L0 110Z"/>
+      <rect x="85" y="5" width="14" height="30" />
+      <rect x="22" y="60" width="22" height="22" fill="#8a5c3d"/>
+      <rect x="76" y="66" width="24" height="44" fill="#8a5c3d"/>
+    </g>
+  </svg>
+
+  <div class="wrap">
+    <span class="kicker"><span data-fr>Livret d'accueil</span><span data-en>Welcome book</span></span>
+    <h1><span data-fr>Bienvenue chez nous&nbsp;!</span><span data-en>Welcome home!</span></h1>
+    <p>
+      <span data-fr>Nous espérons que vous passerez un agréable séjour dans notre maison, qui a été pour nous un véritable coup de cœur.</span>
+      <span data-en>We hope you will enjoy your stay in our house, which was a real “coup de cœur” for us!</span>
+    </p>
+    <div class="hosts">
+      <div class="avatar">L&amp;J</div>
+      <span data-fr>Vos hôtes, Laure et Julien</span><span data-en>Your hosts, Laure and Julien</span>
+    </div>
+  </div>
+</header>
+
+<!-- ================= ACCUEIL ================= -->
+<main class="wrap">
+
+  <div class="welcome-card">
+    <div class="ic">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+    </div>
+    <div>
+      <h2><span data-fr>Un lieu calme, en toutes saisons</span><span data-en>Quiet and cosy, all year round</span></h2>
+      <p>
+        <span data-fr>Touchez une rubrique ci-dessous pour trouver toutes les informations utiles pendant votre séjour.</span>
+        <span data-en>Tap a section below to find everything you need during your stay.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="section-label"><span data-fr>Votre séjour</span><span data-en>Your stay</span></div>
+  <div class="grid">
+    <button class="tile" data-open="bienvenue">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></span>
+      <span class="t"><span data-fr>Le mot des hôtes</span><span data-en>A word from your hosts</span></span>
+    </button>
+    <button class="tile" data-open="contact">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
+      <span class="t"><span data-fr>Contact</span><span data-en>Contact</span></span>
+    </button>
+    <button class="tile" data-open="wifi">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.6a10 10 0 0 1 14 0"/><path d="M1.4 9a15 15 0 0 1 21.2 0"/><path d="M8.5 16.1a5 5 0 0 1 7 0"/><circle cx="12" cy="20" r="1"/></svg></span>
+      <span class="t">Wi-Fi</span>
+    </button>
+    <button class="tile" data-open="equipements">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="13" r="4.5"/><path d="M7 6.5h.01M10 6.5h.01"/></svg></span>
+      <span class="t"><span data-fr>Équipements</span><span data-en>Appliances</span></span>
+    </button>
+    <button class="tile" data-open="chauffage">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0z"/></svg></span>
+      <span class="t"><span data-fr>Chauffage &amp; eau</span><span data-en>Heating &amp; water</span></span>
+    </button>
+    <button class="tile" data-open="dechets">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M10 11v6M14 11v6"/></svg></span>
+      <span class="t"><span data-fr>Poubelles</span><span data-en>Rubbish bins</span></span>
+    </button>
+    <button class="tile" data-open="linge">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3"/><path d="M2 18v-6a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v6"/><path d="M2 18h20M4 18v2M20 18v2"/></svg></span>
+      <span class="t"><span data-fr>Linge de lit</span><span data-en>Bed linen</span></span>
+    </button>
+    <button class="tile" data-open="depart">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+      <span class="t"><span data-fr>Check-list départ</span><span data-en>Check-out list</span></span>
+    </button>
+    <button class="tile alert" data-open="caution">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span>
+      <span class="t"><span data-fr>Caution &amp; règles</span><span data-en>Deposit &amp; rules</span></span>
+    </button>
+  </div>
+</main>
+
+<footer>
+  <span data-fr>Merci de votre bienveillance.</span><span data-en>Thank you for your kindness.</span>
+  <div class="sig"><span data-fr>Laure et Julien</span><span data-en>Laure and Julien</span></div>
+</footer>
+
+<!-- ================= PANNEAUX ================= -->
+
+<!-- Bienvenue -->
+<section class="sheet" id="bienvenue" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2><span data-fr>Le mot des hôtes</span><span data-en>A word from your hosts</span></h2>
+  </div>
+  <div class="sheet-body">
+    <div class="card">
+      <p>
+        <span data-fr>Nous espérons que vous passerez un agréable séjour dans notre maison, qui a été pour nous un véritable <strong>coup de cœur</strong>.</span>
+        <span data-en>We hope you will enjoy your stay in our house, which was a real <strong>“coup de cœur”</strong> for us!</span>
+      </p>
+      <p>
+        <span data-fr>Nous l'avons aménagée à notre goût, pour s'y sentir au calme et qu'elle soit confortable en toutes saisons.</span>
+        <span data-en>We have furnished it to our liking, so that it is quiet and comfortable in all seasons.</span>
+      </p>
+      <p>
+        <span data-fr>Malgré nos efforts pour vous proposer un lieu le plus accueillant possible, nous constatons la négligence de certains voyageurs concernant le respect des lieux et sa propreté. Merci de prendre connaissance de la <strong>check-list de départ</strong>.</span>
+        <span data-en>Despite our efforts to offer you the most welcoming place possible, we note the negligence of some travellers regarding respect for the place and its cleanliness. Please read the <strong>check-out list</strong>.</span>
+      </p>
+      <div class="signature"><span data-fr>Laure et Julien</span><span data-en>Laure and Julien</span></div>
+    </div>
+    <button class="btn" data-open="depart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/></svg>
+      <span data-fr>Voir la check-list de départ</span><span data-en>See the check-out list</span>
+    </button>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="sheet" id="contact" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2>Contact</h2>
+  </div>
+  <div class="sheet-body">
+    <div class="card">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Zeynel</h4>
+      <p class="muted">
+        <span data-fr>Votre interlocuteur sur place pendant le séjour. Contactez-le pour toute question et <strong>afin d'organiser votre départ</strong>.</span>
+        <span data-en>Your contact on site during your stay. Get in touch for any question and <strong>to organise your check-out</strong>.</span>
+      </p>
+      <div class="kv"><b><span data-fr>Téléphone</span><span data-en>Phone</span></b><span class="todo-fill">+33 X XX XX XX XX</span></div>
+      <div class="btn-row">
+        <a class="btn" href="tel:+33000000000">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+          <span data-fr>Appeler</span><span data-en>Call</span>
+        </a>
+        <a class="btn ghost" href="https://wa.me/33000000000">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wi-Fi -->
+<section class="sheet" id="wifi" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2>Wi-Fi</h2>
+  </div>
+  <div class="sheet-body">
+    <div class="card">
+      <div class="kv"><b><span data-fr>Réseau</span><span data-en>Network</span></b><code id="wifi-ssid">NOM_DU_RESEAU</code></div>
+      <div class="kv"><b><span data-fr>Mot de passe</span><span data-en>Password</span></b><code id="wifi-pass">MOT_DE_PASSE</code></div>
+      <button class="btn" id="copy-wifi">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span data-fr>Copier le mot de passe</span><span data-en>Copy password</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Équipements -->
+<section class="sheet" id="equipements" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2><span data-fr>Équipements</span><span data-en>Appliances</span></h2>
+  </div>
+  <div class="sheet-body">
+    <div class="card">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg><span data-fr>Cuisine</span><span data-en>Kitchen</span></h4>
+      <p class="muted">
+        <span data-fr>Four, barbecue, plaques de cuisson, appareils à raclette/fondue, lave-vaisselle. Merci de <strong>nettoyer les équipements utilisés</strong> et de <strong>ranger la vaisselle propre</strong> sans rien laisser dans le lave-vaisselle.</span>
+        <span data-en>Oven, barbecue, hotplates, raclette/fondue machines, dishwasher. Please <strong>clean the equipment you have used</strong> and <strong>put away clean dishes</strong>, leaving nothing in the dishwasher.</span>
+      </p>
+    </div>
+    <div class="card">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="13" r="4"/></svg><span data-fr>Sèche-linge</span><span data-en>Tumble dryer</span></h4>
+      <p class="muted">
+        <span data-fr>Après utilisation, <strong>vider le réservoir d'eau ainsi que le filtre à poussières</strong>.</span>
+        <span data-en>After use, <strong>empty the water tank and the dust filter</strong>.</span>
+      </p>
+    </div>
+    <div class="card">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3 4 5 4 9a4 4 0 0 1-8 0c0-2 1-3 1-3 0 2 1 3 2 3 0-4 1-6 1-9z"/><path d="M4 22h16"/></svg><span data-fr>Poêle à bois</span><span data-en>Wood stove</span></h4>
+      <p class="muted">
+        <span data-fr>En cas d'utilisation, <strong>vider les cendres</strong> dans le seau prévu à cet effet, sur le balcon.</span>
+        <span data-en>If used, <strong>empty the ashes</strong> into the bucket on the balcony.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Chauffage -->
+<section class="sheet" id="chauffage" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2><span data-fr>Chauffage &amp; eau</span><span data-en>Heating &amp; water</span></h2>
+  </div>
+  <div class="sheet-body">
+    <div class="card">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v18M10 3v18M14 3v18M18 3v18M4 7h16M4 17h16"/></svg><span data-fr>Sèche-serviettes</span><span data-en>Towel dryers</span></h4>
+      <p class="muted">
+        <span data-fr>Merci de ne pas laisser les sèche-serviettes allumés toute la journée&nbsp;: <strong>ce ne sont pas des chauffages</strong>.</span>
+        <span data-en>Please turn off the towel dryers after using them: <strong>they are not heaters</strong>.</span>
+      </p>
+    </div>
+    <div class="card">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0z"/></svg><span data-fr>Radiateurs</span><span data-en>Radiators</span></h4>
+      <p class="muted">
+        <span data-fr>Merci de maintenir les radiateurs à une <strong>température raisonnable</strong>.</span>
+        <span data-en>Please keep the radiators at a <strong>reasonable temperature</strong>.</span>
+      </p>
+    </div>
+    <div class="alert-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <span>
+        <span data-fr>En cas d'abus sur l'utilisation des chauffages et de l'eau, nous nous verrons dans l'obligation de réclamer un supplément.</span>
+        <span data-en>In the event of abuse of the heaters and water, we will be obliged to charge a supplement.</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- Déchets -->
+<section class="sheet" id="dechets" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2><span data-fr>Poubelles</span><span data-en>Rubbish bins</span></h2>
+  </div>
+  <div class="sheet-body">
+    <div class="card">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-fr>Où jeter vos déchets&nbsp;?</span><span data-en>Where to throw your rubbish?</span></h4>
+      <p class="muted">
+        <span data-fr>Les containers les plus proches se trouvent sur le <strong>parking de l'Orbe</strong>, à environ <strong>100 mètres</strong> de la maison en sortant à gauche.</span>
+        <span data-en>The nearest bins are located in the <strong>Orbe car park</strong>, approximately <strong>100 metres</strong> from the house — turn left when leaving.</span>
+      </p>
+      <p class="muted">
+        <span data-fr>Avant votre départ, merci de <strong>vider toutes les poubelles</strong> de la maison.</span>
+        <span data-en>Before your departure, please <strong>empty all the rubbish bins</strong> in the house.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Linge -->
+<section class="sheet" id="linge" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2><span data-fr>Linge de lit</span><span data-en>Bed linen</span></h2>
+  </div>
+  <div class="sheet-body">
+    <div class="card">
+      <p class="muted">
+        <span data-fr>En cas de location de linge, merci de <strong>défaire les lits</strong> et de <strong>rassembler draps et/ou serviettes en un seul tas au rez-de-chaussée</strong> avant votre départ.</span>
+        <span data-en>In case of linen rental, please <strong>strip the beds</strong> and <strong>gather sheets and/or towels in one pile on the ground floor</strong> before you leave.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Départ -->
+<section class="sheet" id="depart" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2><span data-fr>Check-list départ</span><span data-en>Check-out list</span></h2>
+  </div>
+  <div class="sheet-body">
+    <p style="margin-bottom:14px">
+      <span data-fr>Avant votre départ, nous vous demandons de&nbsp;:</span>
+      <span data-en>Before your departure, we ask you to:</span>
+    </p>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="progress-label" id="bar-label"></div>
+
+    <div class="card" style="margin-top:14px;padding-top:4px;padding-bottom:4px">
+      <ul class="todo" id="todo">
+        <li data-k="contact"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="txt"><span data-fr><strong>Contacter Zeynel</strong> afin d'organiser votre départ</span><span data-en><strong>Contact Zeynel</strong> to organise check-out</span></span></li>
+        <li data-k="bins"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="txt"><span data-fr><strong>Vider toutes les poubelles</strong> (containers sur le parking de l'Orbe, à 100&nbsp;m en sortant à gauche)</span><span data-en><strong>Empty all the rubbish bins</strong> (nearest bins in the Orbe car park, about 100&nbsp;m away, turn left)</span></span></li>
+        <li data-k="fridge"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="txt"><span data-fr><strong>Vider le frigo et le nettoyer</strong></span><span data-en><strong>Empty the fridge and clean it</strong></span></span></li>
+        <li data-k="dishes"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="txt"><span data-fr><strong>Ranger la vaisselle propre</strong> et ne rien laisser dans le lave-vaisselle</span><span data-en><strong>Put away clean dishes</strong> and leave nothing in the dishwasher</span></span></li>
+        <li data-k="equip"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="txt"><span data-fr><strong>Nettoyer les équipements utilisés</strong> (four, barbecue, plaques de cuisson, appareils à raclette/fondue)</span><span data-en><strong>Clean the equipment you have used</strong> (oven, barbecue, hotplates, raclette/fondue machines)</span></span></li>
+        <li data-k="linen"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="txt"><span data-fr>En cas de location de linge, <strong>défaire les lits et rassembler draps et/ou serviettes en un seul tas au RDC</strong></span><span data-en>In case of linen rental, <strong>strip the beds and gather sheets and/or towels in one pile on the ground floor</strong></span></span></li>
+        <li data-k="dryer"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="txt"><span data-fr>Sèche-linge utilisé&nbsp;: <strong>vider le réservoir d'eau et les poussières</strong></span><span data-en>Tumble dryer used: <strong>empty the water tank and dust filter</strong></span></span></li>
+        <li data-k="stove"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="txt"><span data-fr>Poêle à bois utilisé&nbsp;: <strong>vider les cendres</strong> (seau sur le balcon)</span><span data-en>Wood stove used: <strong>empty the ashes</strong> (bucket on the balcony)</span></span></li>
+        <li data-k="food"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="txt"><span data-fr>Ne pas laisser de <strong>nourriture périssable</strong></span><span data-en>Do not leave any <strong>perishable food</strong></span></span></li>
+      </ul>
+    </div>
+
+    <div class="alert-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <span>
+        <span data-fr>En cas de non-respect des règles, une caution à hauteur de <u>250&nbsp;euros</u> sera demandée.</span>
+        <span data-en>In case of non-compliance, a deposit of <u>250&nbsp;euros</u> will be requested.</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- Caution -->
+<section class="sheet" id="caution" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2><span data-fr>Caution &amp; règles</span><span data-en>Deposit &amp; rules</span></h2>
+  </div>
+  <div class="sheet-body">
+    <div class="alert-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <span>
+        <span data-fr>En cas de non-respect des règles, une caution à hauteur de <u>250&nbsp;euros</u> sera demandée.</span>
+        <span data-en>In case of non-compliance, a deposit of <u>250&nbsp;euros</u> will be requested.</span>
+      </span>
+    </div>
+    <div class="card">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span data-fr>Respect des lieux</span><span data-en>Respect for the house</span></h4>
+      <p class="muted">
+        <span data-fr>Merci de laisser la maison propre et rangée en suivant la check-list de départ.</span>
+        <span data-en>Please leave the house clean and tidy by following the check-out list.</span>
+      </p>
+      <button class="btn ghost" data-open="depart"><span data-fr>Ouvrir la check-list</span><span data-en>Open the check-out list</span></button>
+    </div>
+    <div class="card">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0z"/></svg><span data-fr>Chauffage &amp; eau</span><span data-en>Heating &amp; water</span></h4>
+      <p class="muted">
+        <span data-fr>En cas d'abus sur l'utilisation des chauffages et de l'eau, un supplément pourra être réclamé.</span>
+        <span data-en>In the event of abuse of the heaters and water, a supplement may be charged.</span>
+      </p>
+    </div>
+    <div class="signature"><span data-fr>Merci de votre bienveillance.<br>Laure et Julien</span><span data-en>Thank you for your kindness.<br>Laure and Julien</span></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var store = {
+    get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+    set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  };
+
+  // Langue
+  function setLang(l){
+    document.body.classList.toggle('en', l==='en');
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-set-lang]').forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-set-lang')===l);
+    });
+    store.set('livret-lang', l);
+    updateBar();
+  }
+  document.querySelectorAll('[data-set-lang]').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-set-lang')); });
+  });
+
+  // Panneaux
+  var current = null;
+  function openSheet(id, push){
+    var el = document.getElementById(id);
+    if(!el) return;
+    if(current && current !== el){ current.classList.remove('open'); current.setAttribute('aria-hidden','true'); }
+    el.classList.add('open'); el.setAttribute('aria-hidden','false'); el.scrollTop = 0;
+    document.body.classList.add('lock');
+    current = el;
+    if(push !== false) history.pushState({sheet:id}, '', '#'+id);
+  }
+  function closeSheet(){
+    if(!current) return;
+    current.classList.remove('open'); current.setAttribute('aria-hidden','true');
+    current = null;
+    document.body.classList.remove('lock');
+  }
+  document.querySelectorAll('[data-open]').forEach(function(b){
+    b.addEventListener('click', function(){ openSheet(b.getAttribute('data-open')); });
+  });
+  document.querySelectorAll('[data-close]').forEach(function(b){
+    b.addEventListener('click', function(){
+      if(history.state && history.state.sheet) history.back(); else closeSheet();
+    });
+  });
+  window.addEventListener('popstate', function(e){
+    if(e.state && e.state.sheet) openSheet(e.state.sheet, false); else closeSheet();
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && current) history.back(); });
+
+  // Check-list
+  var items = document.querySelectorAll('#todo li');
+  var saved = {};
+  try{ saved = JSON.parse(store.get('livret-todo') || '{}') || {}; }catch(e){ saved = {}; }
+  items.forEach(function(li){
+    var k = li.getAttribute('data-k');
+    if(saved[k]) li.classList.add('done');
+    li.setAttribute('role','checkbox'); li.tabIndex = 0;
+    function toggle(){
+      li.classList.toggle('done');
+      saved[k] = li.classList.contains('done');
+      store.set('livret-todo', JSON.stringify(saved));
+      updateBar();
+    }
+    li.addEventListener('click', toggle);
+    li.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+  });
+  function updateBar(){
+    var done = document.querySelectorAll('#todo li.done').length, total = items.length;
+    items.forEach(function(li){ li.setAttribute('aria-checked', li.classList.contains('done')); });
+    document.getElementById('bar').style.width = (done/total*100)+'%';
+    var en = document.body.classList.contains('en');
+    document.getElementById('bar-label').textContent = done===total
+      ? (en ? 'All done — thank you and safe travels!' : 'Tout est prêt — merci et bon retour !')
+      : done+' / '+total+(en ? ' completed' : ' effectuées');
+  }
+
+  // Copier Wi-Fi
+  document.getElementById('copy-wifi').addEventListener('click', function(){
+    var t = document.getElementById('wifi-pass').textContent, btn = this;
+    var done = function(){ btn.classList.add('ghost'); setTimeout(function(){ btn.classList.remove('ghost'); }, 1200); };
+    if(navigator.clipboard) navigator.clipboard.writeText(t).then(done, function(){});
+  });
+
+  var nav = (navigator.language || 'fr').slice(0,2);
+  setLang(store.get('livret-lang') || (nav==='fr' ? 'fr' : 'en'));
+  if(location.hash && document.getElementById(location.hash.slice(1))){
+    history.replaceState(null,'',location.pathname);
+    openSheet(location.hash.slice(1));
+  }
+})();
+</script>
+</body>
+</html>
