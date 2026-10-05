@@ -83,7 +83,7 @@
   .home{position:relative;z-index:3;margin-top:-40px;background:var(--bg);border-radius:32px 32px 0 0;padding-top:28px}
   .tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .tile{
-    background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow-s);
+    display:block;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow-s);
     padding:24px 12px 20px;text-align:center;transition:transform .15s
   }
   .tile:active{transform:scale(.97)}
@@ -130,7 +130,7 @@
     position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;
     transform:translateX(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);visibility:hidden
   }
-  .page.open{transform:none;visibility:visible}
+  .page.open,.page:target{transform:none;visibility:visible}
   .page-head{
     position:sticky;top:0;z-index:10;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     display:flex;align-items:center;gap:14px;padding:14px 16px 14px 12px;border-bottom:1px solid var(--line)
@@ -205,7 +205,8 @@
   .bar i{display:block;height:100%;width:0;background:var(--blue);border-radius:999px;transition:width .3s}
   .remain{color:var(--muted);font-size:15px;margin-bottom:18px}
   .todo{list-style:none;display:grid;gap:12px}
-  .todo li{
+  .sr{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+  .todo .it{
     display:flex;gap:14px;align-items:center;background:var(--soft);border-radius:22px;padding:16px;cursor:pointer;
     transition:background .2s
   }
@@ -215,10 +216,11 @@
   .todo .t small{display:block;color:var(--muted);font-size:14px;margin-top:2px}
   .badge{flex:none;font-size:13px;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--blue-soft);color:var(--blue);border:1px solid #d6e3f8}
   .badge.opt{background:#fff;color:var(--muted);border-color:var(--line)}
-  .todo li.done{background:#eef7f1}
-  .todo li.done .box{background:var(--green);border-color:var(--green)}
-  .todo li.done .box svg{opacity:1}
-  .todo li.done .t{color:var(--muted);text-decoration:line-through}
+  .todo .it:has(input:checked){background:#eef7f1}
+  .todo .it:has(input:checked) .box{background:var(--green);border-color:var(--green)}
+  .todo .it:has(input:checked) .box svg{opacity:1}
+  .todo .it:focus-within{outline:2px solid var(--blue);outline-offset:2px}
+  .todo .it:has(input:checked) .t{color:var(--muted);text-decoration:line-through}
 
   .warn{
     display:flex;gap:14px;align-items:flex-start;background:var(--red-soft);border:1px solid #f5d2cf;color:#a83232;
@@ -353,55 +355,55 @@
 <main class="home">
   <div class="wrap">
     <div class="tiles">
-      <button class="tile" data-open="bienvenue">
+      <a class="tile" href="#bienvenue">
         <span class="emoji">👋</span>
         <b><span data-fr>Bienvenue</span><span data-en>Welcome</span></b>
         <small><span data-fr>Mot des hôtes</span><span data-en>From your hosts</span></small>
-      </button>
-      <button class="tile" data-open="wifi">
+      </a>
+      <a class="tile" href="#wifi">
         <span class="emoji">📶</span>
         <b>Wi-Fi</b>
         <small><span data-fr>Réseau &amp; mot de passe</span><span data-en>Network &amp; password</span></small>
-      </button>
-      <button class="tile" data-open="contacts">
+      </a>
+      <a class="tile" href="#contacts">
         <span class="emoji">📞</span>
         <b>Contacts</b>
         <small><span data-fr>Numéros utiles</span><span data-en>Useful numbers</span></small>
-      </button>
-      <button class="tile" data-open="depart">
+      </a>
+      <a class="tile" href="#depart">
         <span class="emoji">🚪</span>
         <b><span data-fr>Départ</span><span data-en>Check-out</span></b>
         <small><span data-fr>Check-list</span><span data-en>Checklist</span></small>
-      </button>
+      </a>
     </div>
 
     <div class="group-title"><span data-fr>Sur place</span><span data-en>During your stay</span></div>
     <div class="list">
-      <button class="row" data-open="reglement">
+      <a class="row" href="#reglement">
         <span class="emoji">📋</span>
         <span class="txt"><b><span data-fr>Règlement</span><span data-en>House rules</span></b><small><span data-fr>6 règles</span><span data-en>6 rules</span></small></span>
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-      <button class="row" data-open="equipements">
+      </a>
+      <a class="row" href="#equipements">
         <span class="emoji">🍳</span>
         <span class="txt"><b><span data-fr>Équipements</span><span data-en>Appliances</span></b><small><span data-fr>Cuisine, sèche-linge, poêle</span><span data-en>Kitchen, dryer, wood stove</span></small></span>
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-      <button class="row" data-open="chauffage">
+      </a>
+      <a class="row" href="#chauffage">
         <span class="emoji">🔥</span>
         <span class="txt"><b><span data-fr>Chauffage &amp; eau</span><span data-en>Heating &amp; water</span></b><small><span data-fr>Radiateurs, sèche-serviettes</span><span data-en>Radiators, towel dryers</span></small></span>
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-      <button class="row" data-open="dechets">
+      </a>
+      <a class="row" href="#dechets">
         <span class="emoji">🗑️</span>
         <span class="txt"><b><span data-fr>Poubelles</span><span data-en>Rubbish</span></b><small><span data-fr>Parking de l'Orbe, 100 m</span><span data-en>Orbe car park, 100 m</span></small></span>
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-      <button class="row" data-open="linge">
+      </a>
+      <a class="row" href="#linge">
         <span class="emoji">🛏️</span>
         <span class="txt"><b><span data-fr>Linge de lit</span><span data-en>Bed linen</span></b><small><span data-fr>En cas de location</span><span data-en>If rented</span></small></span>
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
+      </a>
     </div>
 
     <div class="group-title"><span data-fr>Découvrir</span><span data-en>Discover</span></div>
@@ -445,7 +447,7 @@
 <!-- Bienvenue -->
 <section class="page" id="bienvenue" aria-hidden="true">
   <div class="page-head">
-    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <a class="back" href="#" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
     <span class="emoji">👋</span><h2><span data-fr>Bienvenue</span><span data-en>Welcome</span></h2>
     <div class="lang" data-lang></div>
   </div>
@@ -499,7 +501,7 @@
 <!-- Wi-Fi -->
 <section class="page" id="wifi" aria-hidden="true">
   <div class="page-head">
-    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <a class="back" href="#" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
     <span class="emoji">📶</span><h2>Wi-Fi</h2>
     <div class="lang" data-lang></div>
   </div>
@@ -540,7 +542,7 @@
 <!-- Contacts -->
 <section class="page" id="contacts" aria-hidden="true">
   <div class="page-head">
-    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <a class="back" href="#" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
     <span class="emoji">📞</span><h2>Contacts</h2>
     <div class="lang" data-lang></div>
   </div>
@@ -587,7 +589,7 @@
 <!-- Départ -->
 <section class="page" id="depart" aria-hidden="true">
   <div class="page-head">
-    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <a class="back" href="#" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
     <span class="emoji">🚪</span><h2><span data-fr>Départ</span><span data-en>Check-out</span></h2>
     <div class="lang" data-lang></div>
   </div>
@@ -621,33 +623,33 @@
       <div class="remain" id="remain"></div>
 
       <ul class="todo" id="todo">
-        <li data-k="contact"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <li data-k="contact"><label class="it"><input type="checkbox" class="sr"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
           <span class="t"><span data-fr>Contacter Zeynel pour organiser le départ</span><span data-en>Contact Zeynel to organise check-out</span></span>
-          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></li>
-        <li data-k="bins"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></label></li>
+        <li data-k="bins"><label class="it"><input type="checkbox" class="sr"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
           <span class="t"><span data-fr>Vider toutes les poubelles<small>Containers au parking de l'Orbe, 100 m à gauche</small></span><span data-en>Empty all the rubbish bins<small>Bins in the Orbe car park, 100 m to the left</small></span></span>
-          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></li>
-        <li data-k="fridge"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></label></li>
+        <li data-k="fridge"><label class="it"><input type="checkbox" class="sr"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
           <span class="t"><span data-fr>Vider le frigo et le nettoyer</span><span data-en>Empty the fridge and clean it</span></span>
-          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></li>
-        <li data-k="dishes"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></label></li>
+        <li data-k="dishes"><label class="it"><input type="checkbox" class="sr"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
           <span class="t"><span data-fr>Ranger la vaisselle propre<small>Ne rien laisser dans le lave-vaisselle</small></span><span data-en>Put away clean dishes<small>Leave nothing in the dishwasher</small></span></span>
-          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></li>
-        <li data-k="equip"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></label></li>
+        <li data-k="equip"><label class="it"><input type="checkbox" class="sr"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
           <span class="t"><span data-fr>Nettoyer les équipements utilisés<small>Four, barbecue, plaques, raclette/fondue</small></span><span data-en>Clean the equipment you used<small>Oven, barbecue, hotplates, raclette/fondue</small></span></span>
-          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></li>
-        <li data-k="food"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></label></li>
+        <li data-k="food"><label class="it"><input type="checkbox" class="sr"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
           <span class="t"><span data-fr>Ne laisser aucune nourriture périssable</span><span data-en>Leave no perishable food</span></span>
-          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></li>
-        <li data-k="linen"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="badge"><span data-fr>Requis</span><span data-en>Required</span></span></label></li>
+        <li data-k="linen"><label class="it"><input type="checkbox" class="sr"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
           <span class="t"><span data-fr>Défaire les lits, draps et serviettes en un tas au RDC<small>En cas de location de linge</small></span><span data-en>Strip the beds, sheets and towels in one pile downstairs<small>If linen was rented</small></span></span>
-          <span class="badge opt"><span data-fr>Si concerné</span><span data-en>If relevant</span></span></li>
-        <li data-k="dryer"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="badge opt"><span data-fr>Si concerné</span><span data-en>If relevant</span></span></label></li>
+        <li data-k="dryer"><label class="it"><input type="checkbox" class="sr"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
           <span class="t"><span data-fr>Vider le réservoir d'eau et le filtre du sèche-linge</span><span data-en>Empty the dryer's water tank and dust filter</span></span>
-          <span class="badge opt"><span data-fr>Si concerné</span><span data-en>If relevant</span></span></li>
-        <li data-k="stove"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="badge opt"><span data-fr>Si concerné</span><span data-en>If relevant</span></span></label></li>
+        <li data-k="stove"><label class="it"><input type="checkbox" class="sr"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
           <span class="t"><span data-fr>Vider les cendres du poêle<small>Seau sur le balcon</small></span><span data-en>Empty the wood stove ashes<small>Bucket on the balcony</small></span></span>
-          <span class="badge opt"><span data-fr>Si concerné</span><span data-en>If relevant</span></span></li>
+          <span class="badge opt"><span data-fr>Si concerné</span><span data-en>If relevant</span></span></label></li>
       </ul>
     </div>
 
@@ -661,7 +663,7 @@
 <!-- Règlement -->
 <section class="page" id="reglement" aria-hidden="true">
   <div class="page-head">
-    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <a class="back" href="#" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
     <span class="emoji">📋</span><h2><span data-fr>Règlement</span><span data-en>House rules</span></h2>
     <div class="lang" data-lang></div>
   </div>
@@ -704,14 +706,14 @@
         <p><span data-fr>Merci de ne pas laisser de <strong>nourriture périssable</strong>.</span><span data-en>Please do not leave any <strong>perishable food</strong>.</span></p>
       </div></div>
     </div>
-    <button class="btn" data-open="depart" style="width:100%"><span data-fr>Ouvrir la check-list de départ</span><span data-en>Open the check-out list</span></button>
+    <a class="btn" href="#depart" style="width:100%"><span data-fr>Ouvrir la check-list de départ</span><span data-en>Open the check-out list</span></a>
   </div>
 </section>
 
 <!-- Équipements -->
 <section class="page" id="equipements" aria-hidden="true">
   <div class="page-head">
-    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <a class="back" href="#" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
     <span class="emoji">🍳</span><h2><span data-fr>Équipements</span><span data-en>Appliances</span></h2>
     <div class="lang" data-lang></div>
   </div>
@@ -748,7 +750,7 @@
 <!-- Chauffage -->
 <section class="page" id="chauffage" aria-hidden="true">
   <div class="page-head">
-    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <a class="back" href="#" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
     <span class="emoji">🔥</span><h2><span data-fr>Chauffage &amp; eau</span><span data-en>Heating &amp; water</span></h2>
     <div class="lang" data-lang></div>
   </div>
@@ -785,7 +787,7 @@
 <!-- Poubelles -->
 <section class="page" id="dechets" aria-hidden="true">
   <div class="page-head">
-    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <a class="back" href="#" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
     <span class="emoji">🗑️</span><h2><span data-fr>Poubelles</span><span data-en>Rubbish</span></h2>
     <div class="lang" data-lang></div>
   </div>
@@ -821,7 +823,7 @@
 <!-- Linge -->
 <section class="page" id="linge" aria-hidden="true">
   <div class="page-head">
-    <button class="back" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <a class="back" href="#" data-close aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
     <span class="emoji">🛏️</span><h2><span data-fr>Linge de lit</span><span data-en>Bed linen</span></h2>
     <div class="lang" data-lang></div>
   </div>
@@ -886,55 +888,41 @@
     if(b) setLang(b.getAttribute('data-set-lang'));
   });
 
-  /* --- Navigation entre pages --- */
-  var current = null;
-  function openPage(id, push){
-    var el = document.getElementById(id);
-    if(!el || !el.classList.contains('page')) return;
-    if(current && current !== el){ current.classList.remove('open'); current.setAttribute('aria-hidden','true'); }
-    el.classList.add('open'); el.setAttribute('aria-hidden','false'); el.scrollTop = 0;
-    document.body.classList.add('lock');
-    current = el;
-    if(push !== false) history.pushState({page:id}, '', '#'+id);
+  /* --- Navigation entre pages (ancres #id, fonctionne aussi sans JS) --- */
+  var fromHome = false;
+  function sync(){
+    var id = location.hash.slice(1), el = id && document.getElementById(id);
+    var on = !!(el && el.classList.contains('page'));
+    document.body.classList.toggle('lock', on);
+    if(on) el.scrollTop = 0;
+    if(!on) fromHome = true;
   }
-  function closePage(){
-    if(!current) return;
-    current.classList.remove('open'); current.setAttribute('aria-hidden','true');
-    current = null; document.body.classList.remove('lock');
-  }
-  document.querySelectorAll('[data-open]').forEach(function(b){
-    b.addEventListener('click', function(){ openPage(b.getAttribute('data-open')); });
-  });
+  window.addEventListener('hashchange', sync);
+  fromHome = !location.hash;
+  sync();
   document.querySelectorAll('[data-close]').forEach(function(b){
-    b.addEventListener('click', function(){
-      if(history.state && history.state.page) history.back(); else closePage();
+    b.addEventListener('click', function(e){
+      if(fromHome && history.length > 1){ e.preventDefault(); history.back(); }
     });
-  });
-  window.addEventListener('popstate', function(e){
-    if(e.state && e.state.page) openPage(e.state.page, false); else closePage();
   });
 
   /* --- Check-list --- */
-  var items = document.querySelectorAll('#todo li');
+  var boxes = document.querySelectorAll('#todo input');
   var saved = {};
   try{ saved = JSON.parse(store.get('livret-todo') || '{}') || {}; }catch(e){ saved = {}; }
-  items.forEach(function(li){
-    var k = li.getAttribute('data-k');
-    if(saved[k]) li.classList.add('done');
-    li.setAttribute('role','checkbox'); li.tabIndex = 0;
-    function toggle(){
-      li.classList.toggle('done');
-      saved[k] = li.classList.contains('done');
+  boxes.forEach(function(cb){
+    var k = cb.closest('li').getAttribute('data-k');
+    cb.checked = !!saved[k];
+    cb.addEventListener('change', function(){
+      saved[k] = cb.checked;
       store.set('livret-todo', JSON.stringify(saved));
       updateList();
-    }
-    li.addEventListener('click', toggle);
-    li.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+    });
   });
   function updateList(){
-    var total = items.length, done = document.querySelectorAll('#todo li.done').length, left = total - done;
-    var en = document.body.classList.contains('en');
-    items.forEach(function(li){ li.setAttribute('aria-checked', li.classList.contains('done')); });
+    var total = boxes.length, done = 0, en = document.body.classList.contains('en');
+    boxes.forEach(function(cb){ if(cb.checked) done++; });
+    var left = total - done;
     document.getElementById('count').textContent = done + ' / ' + total;
     document.getElementById('bar').style.width = (done/total*100) + '%';
     document.getElementById('remain').textContent = left === 0
@@ -971,11 +959,6 @@
 
   var nav = (navigator.language || 'fr').slice(0,2);
   setLang(store.get('livret-lang') || (nav==='fr' ? 'fr' : 'en'));
-  if(location.hash && document.getElementById(location.hash.slice(1))){
-    var id = location.hash.slice(1);
-    history.replaceState(null,'',location.pathname);
-    openPage(id);
-  }
 })();
 </script>
 </body>
