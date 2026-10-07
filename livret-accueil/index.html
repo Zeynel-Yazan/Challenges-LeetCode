@@ -109,8 +109,12 @@
     position:relative;margin-top:14px;border-radius:26px;overflow:hidden;border:1px solid var(--line);
     box-shadow:var(--shadow-s);height:260px;background:var(--soft)
   }
-  .map iframe{width:100%;height:100%;border:0;display:block}
-  .map .btn{position:absolute;top:14px;right:14px}
+  .map iframe{position:absolute;inset:0;z-index:1;width:100%;height:100%;border:0;display:block;background:transparent}
+  .map .map-fb{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .map-label{position:absolute;left:14px;bottom:14px;z-index:0;background:#fff;border-radius:999px;padding:6px 14px;font-size:14px;font-weight:500;box-shadow:var(--shadow-s)}
+  .map-links{display:flex;gap:10px;margin-top:12px}
+  .map-links .btn{flex:1;padding:12px 10px;font-size:15px}
+  .map .btn{position:absolute;top:14px;right:14px;z-index:2}
 
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--blue);color:#fff;
@@ -373,11 +377,35 @@
       <div class="h2"><span data-fr>Où se situe le logement</span><span data-en>Where the house is</span></div>
       <p style="color:var(--muted);margin-top:4px">306 Route Royale, 39220 Les Rousses</p>
       <div class="map">
-        <iframe loading="lazy" title="Carte" src="https://maps.google.com/maps?q=306%20Route%20Royale%2C%2039220%20Les%20Rousses&z=15&output=embed"></iframe>
+        <svg class="map-fb" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="260" fill="#f1eee8"/>
+          <path d="M250 0h150v95q-40 25-85 10t-65-60z" fill="#bcd6ef"/>
+          <path d="M0 170q50-20 90 5t70 85H0z" fill="#d7e8cf"/>
+          <path d="M300 180q40-15 100 0v80H290z" fill="#d7e8cf"/>
+          <g fill="none" stroke-linecap="round">
+            <path d="M-10 205 C90 175 160 150 210 130 S330 70 410 40" stroke="#d9d2c6" stroke-width="20"/>
+            <path d="M-10 205 C90 175 160 150 210 130 S330 70 410 40" stroke="#ffffff" stroke-width="14"/>
+            <path d="M120 -10 C140 60 180 100 210 130 S250 210 240 270" stroke="#d9d2c6" stroke-width="12"/>
+            <path d="M120 -10 C140 60 180 100 210 130 S250 210 240 270" stroke="#ffffff" stroke-width="8"/>
+            <path d="M40 60 L150 90 M260 160 L380 210 M60 120 L170 115" stroke="#ffffff" stroke-width="6"/>
+          </g>
+          <text x="300" y="98" font-family="Outfit, sans-serif" font-size="11" fill="#9a9184" transform="rotate(-22 300 98)">Route Royale</text>
+          <g transform="translate(200 108)">
+            <ellipse cx="0" cy="30" rx="12" ry="4" fill="rgba(0,0,0,.15)"/>
+            <path d="M0 30 C-6 18 -22 8 -22 -8 a22 22 0 0 1 44 0 C22 8 6 18 0 30z" fill="#f2b8a9" stroke="#fff" stroke-width="3"/>
+            <text x="0" y="0" text-anchor="middle" font-size="20">🏠</text>
+          </g>
+        </svg>
+        <span class="map-label"><span data-fr>306 Route Royale, Les Rousses</span><span data-en>306 Route Royale, Les Rousses</span></span>
+        <iframe title="Carte" src="https://maps.google.com/maps?q=306%20Route%20Royale%2C%2039220%20Les%20Rousses&z=15&output=embed"></iframe>
         <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=306+Route+Royale+39220+Les+Rousses" target="_blank" rel="noopener">
           <span data-fr>Itinéraire</span><span data-en>Directions</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
         </a>
+      </div>
+      <div class="map-links">
+        <a class="btn ghost" href="https://maps.apple.com/?q=306+Route+Royale,+39220+Les+Rousses&address=306+Route+Royale,+39220+Les+Rousses,+France" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-fr>Plans</span><span data-en>Apple Maps</span></a>
+        <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=306+Route+Royale+39220+Les+Rousses" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Google Maps</a>
       </div>
     </div>
 
@@ -764,7 +792,27 @@
       <p><span data-fr>Merci de <strong>vider toutes les poubelles</strong> de la maison.</span><span data-en>Please <strong>empty all the rubbish bins</strong> in the house.</span></p>
     </div></div>
     <div class="map">
-      <iframe loading="lazy" title="Parking de l'Orbe" src="https://maps.google.com/maps?q=Parking%20de%20l'Orbe%2C%2039220%20Les%20Rousses&z=17&output=embed"></iframe>
+      <svg class="map-fb" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="260" fill="#f1eee8"/>
+          <path d="M250 0h150v95q-40 25-85 10t-65-60z" fill="#bcd6ef"/>
+          <path d="M0 170q50-20 90 5t70 85H0z" fill="#d7e8cf"/>
+          <path d="M300 180q40-15 100 0v80H290z" fill="#d7e8cf"/>
+          <g fill="none" stroke-linecap="round">
+            <path d="M-10 205 C90 175 160 150 210 130 S330 70 410 40" stroke="#d9d2c6" stroke-width="20"/>
+            <path d="M-10 205 C90 175 160 150 210 130 S330 70 410 40" stroke="#ffffff" stroke-width="14"/>
+            <path d="M120 -10 C140 60 180 100 210 130 S250 210 240 270" stroke="#d9d2c6" stroke-width="12"/>
+            <path d="M120 -10 C140 60 180 100 210 130 S250 210 240 270" stroke="#ffffff" stroke-width="8"/>
+            <path d="M40 60 L150 90 M260 160 L380 210 M60 120 L170 115" stroke="#ffffff" stroke-width="6"/>
+          </g>
+          <text x="300" y="98" font-family="Outfit, sans-serif" font-size="11" fill="#9a9184" transform="rotate(-22 300 98)">Route Royale</text>
+          <g transform="translate(200 108)">
+            <ellipse cx="0" cy="30" rx="12" ry="4" fill="rgba(0,0,0,.15)"/>
+            <path d="M0 30 C-6 18 -22 8 -22 -8 a22 22 0 0 1 44 0 C22 8 6 18 0 30z" fill="#f2b8a9" stroke="#fff" stroke-width="3"/>
+            <text x="0" y="0" text-anchor="middle" font-size="20">🗑️</text>
+          </g>
+        </svg>
+        <span class="map-label"><span data-fr>Parking de l'Orbe, 100 m</span><span data-en>Orbe car park, 100 m</span></span>
+      <iframe title="Parking de l'Orbe" src="https://maps.google.com/maps?q=Parking%20de%20l'Orbe%2C%2039220%20Les%20Rousses&z=17&output=embed"></iframe>
       <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=306+Route+Royale+39220+Les+Rousses&destination=Parking+de+l'Orbe+39220+Les+Rousses&travelmode=walking" target="_blank" rel="noopener">
         <span data-fr>Itinéraire</span><span data-en>Directions</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
